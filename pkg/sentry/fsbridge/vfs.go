@@ -60,6 +60,8 @@ func (f *VFSFile) ReadFull(ctx context.Context, dst usermem.IOSequence, offset i
 			return total, io.ErrUnexpectedEOF
 		} else if err != nil {
 			return total, err
+		} else if n == 0 {
+			return total, err
 		}
 		dst = dst.DropFirst64(n)
 	}
